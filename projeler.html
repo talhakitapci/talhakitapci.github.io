@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Talha Kitapçı | Yapım Aşamasında</title>
+  <title>Talha Kitapçı | Teknik Portfolyo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
@@ -10,7 +10,7 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
       background-color: #f9fafb;
     }
     canvas {
@@ -34,16 +34,37 @@
         100% { background-position: 0% 50%; }
       }
     }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.7s forwards;
+    }
+    .fade-in.delay-1 { animation-delay: .2s; }
+    .fade-in.delay-2 { animation-delay: .4s; }
+    .fade-in.delay-3 { animation-delay: .6s; }
+    .fade-in.delay-4 { animation-delay: .8s; }
+    .fade-in.delay-5 { animation-delay: 1s; }
+    .fade-in.delay-6 { animation-delay: 1.2s; }
+    .fade-in.delay-7 { animation-delay: 1.4s; }
+    .fade-in.delay-8 { animation-delay: 1.6s; }
+    .fade-in.delay-9 { animation-delay: 1.8s; }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
   </style>
 </head>
 <body class="text-gray-800 font-sans">
   <canvas id="bgCanvas"></canvas>
 
-  <div class="max-w-md mx-auto mt-20 p-6 text-center bg-white bg-opacity-80 rounded-xl shadow-md">
-    <h1 class="text-4xl font-bold animate-gradient bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
-      Yapım Aşamasında
+  <div class="max-w-2xl mx-auto mt-16 p-6 text-center bg-white bg-opacity-80 rounded-xl shadow-md">
+    <h1 class="text-4xl font-bold animate-gradient bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mb-2">
+      Talha KİTAPÇI
     </h1>
-    <p class="mt-4 text-sm text-gray-600">Yakın zamanda tekrar kontrol edin.</p>
+    <p class="text-sm text-gray-600 mb-8">Teknik danışmanlık, akademik veri sunumu ve dijital iş akışı çözümleri.</p>
+    <div id="profile-sections"></div>
   </div>
 
   <footer class="mt-12 text-xs text-gray-500 text-center">
@@ -51,6 +72,7 @@
   </footer>
 
   <script>
+    // Canvas arka planı
     const canvas = document.getElementById("bgCanvas");
     const ctx = canvas.getContext("2d");
     let width, height;
@@ -143,6 +165,56 @@
       requestAnimationFrame(animate);
     }
     animate();
+
+    // PROFIL SECTIONS DATA
+    const sections = [
+      {
+        title: "Projeler ve Teknik Çözümler",
+        icon: "build",
+        items: [
+          "Uzmanlık Alanları", "Web Arayüz Geliştirme", "Tarımsal Veri Tahminleme ve Görselleştirme",
+          "CNC ve 3D Baskı Modelleme", "Adli Bilişim Uygulamaları", "Akademik Sunum",
+          "Yapay Sinir Ağları ve İstatistiksel Modelleme", "Giyilebilir Teknoloji Geliştiriciliği"
+        ],
+        color: "from-blue-500 via-purple-500 to-pink-500"
+      },
+      {
+        title: "Kullandığım Programlar",
+        icon: "computer",
+        items: [
+          "Adobe Animate", "Adobe Photoshop", "Adobe After Effects", "Adobe Premiere Pro",
+          "CorelDRAW", "SketchUp", "VMware Workstation", "Autodesk Maya",
+          "Autodesk 3ds Max", "Fusion 360", "Python", "JavaScript (Canvas/DOM)", "R",
+          "SolidWorks", "Tableau", "SPSS", "MATLAB", "Android Studio"
+        ],
+        color: "from-green-400 via-teal-500 to-blue-500"
+      }
+    ];
+
+    function sectionItemHTML(item, idx) {
+      // Her bir item fade-in animasyonu ile ve ikon ile gösteriliyor
+      return `<li class="flex items-center gap-2 mb-2 fade-in delay-${idx % 9 + 1}">
+        <span class="material-icons-outlined text-lg text-blue-500">check_circle</span>
+        <span>${item}</span>
+      </li>`;
+    }
+
+    function sectionHTML(section, idx) {
+      return `
+        <div class="mb-8 fade-in delay-${idx+1}">
+          <div class="flex items-center justify-center mb-3">
+            <span class="material-icons-outlined text-2xl bg-gradient-to-r ${section.color} bg-clip-text text-transparent mr-2">${section.icon}</span>
+            <h2 class="text-xl font-semibold bg-gradient-to-r ${section.color} bg-clip-text text-transparent">${section.title}</h2>
+          </div>
+          <ul class="text-left max-w-md mx-auto">
+            ${section.items.map(sectionItemHTML).join('')}
+          </ul>
+        </div>
+      `;
+    }
+
+    // Render sections
+    document.getElementById("profile-sections").innerHTML = sections.map(sectionHTML).join('');
   </script>
 </body>
 </html>
