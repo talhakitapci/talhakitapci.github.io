@@ -43,11 +43,20 @@
     .fade-in.delay-2 { animation-delay: .4s; }
     .fade-in.delay-3 { animation-delay: .6s; }
     .fade-in.delay-4 { animation-delay: .8s; }
-    .fade-in.delay-5 { animation-delay: 1s; }
+    .fade-in.delay-5 { animation-delay: 1.0s; }
     .fade-in.delay-6 { animation-delay: 1.2s; }
     .fade-in.delay-7 { animation-delay: 1.4s; }
     .fade-in.delay-8 { animation-delay: 1.6s; }
     .fade-in.delay-9 { animation-delay: 1.8s; }
+    .fade-in.delay-10 { animation-delay: 2.0s; }
+    .fade-in.delay-11 { animation-delay: 2.2s; }
+    .fade-in.delay-12 { animation-delay: 2.4s; }
+    .fade-in.delay-13 { animation-delay: 2.6s; }
+    .fade-in.delay-14 { animation-delay: 2.8s; }
+    .fade-in.delay-15 { animation-delay: 3.0s; }
+    .fade-in.delay-16 { animation-delay: 3.2s; }
+    .fade-in.delay-17 { animation-delay: 3.4s; }
+    .fade-in.delay-18 { animation-delay: 3.6s; }
     @keyframes fadeInUp {
       to {
         opacity: 1;
@@ -171,7 +180,7 @@
         title: "Projeler ve Teknik Çözümler",
         icon: "build",
         items: [
-          "Uzmanlık Alanları", "Web Arayüz Geliştirme", "Tarımsal Veri Tahminleme ve Görselleştirme",
+          "Web Arayüz Geliştirme", "Tarımsal Veri Tahminleme ve Görselleştirme",
           "CNC ve 3D Baskı Modelleme", "Adli Bilişim Uygulamaları", "Akademik Sunum",
           "Yapay Sinir Ağları ve İstatistiksel Modelleme", "Giyilebilir Teknoloji Geliştiriciliği"
         ],
@@ -183,16 +192,16 @@
         items: [
           "Adobe Animate", "Adobe Photoshop", "Adobe After Effects", "Adobe Premiere Pro",
           "CorelDRAW", "SketchUp", "VMware Workstation", "Autodesk Maya",
-          "Autodesk 3ds Max", "Fusion 360", "Python", "R",
+          "Autodesk 3ds Max", "Fusion 360", "Python", "JavaScript (Canvas/DOM)", "R",
           "SolidWorks", "Tableau", "SPSS", "MATLAB", "Android Studio"
         ],
         color: "from-green-400 via-teal-500 to-blue-500"
       }
     ];
 
+    // Animasyon gecikmesi HER MADDE için sırayla ilerler!
     function sectionItemHTML(item, idx) {
-      // Her bir item fade-in animasyonu ile ve ikon ile gösteriliyor
-      return `<li class="flex items-center gap-2 mb-2 fade-in delay-${idx % 9 + 1}">
+      return `<li class="flex items-center gap-2 mb-2 fade-in delay-${idx + 1}">
         <span class="material-icons-outlined text-lg text-blue-500">check_circle</span>
         <span>${item}</span>
       </li>`;
@@ -206,7 +215,7 @@
             <h2 class="text-xl font-semibold bg-gradient-to-r ${section.color} bg-clip-text text-transparent">${section.title}</h2>
           </div>
           <ul class="text-left max-w-md mx-auto">
-            ${section.items.map(sectionItemHTML).join('')}
+            ${section.items.map((item, i) => sectionItemHTML(item, i)).join('')}
           </ul>
         </div>
       `;
