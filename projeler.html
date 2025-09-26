@@ -39,6 +39,12 @@
       transform: translateY(30px);
       animation: fadeInUp 0.7s forwards;
     }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
     .fade-in.delay-1 { animation-delay: .2s; }
     .fade-in.delay-2 { animation-delay: .4s; }
     .fade-in.delay-3 { animation-delay: .6s; }
@@ -57,12 +63,6 @@
     .fade-in.delay-16 { animation-delay: 3.2s; }
     .fade-in.delay-17 { animation-delay: 3.4s; }
     .fade-in.delay-18 { animation-delay: 3.6s; }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
   </style>
 </head>
 <body class="text-gray-800 font-sans">
@@ -80,7 +80,6 @@
   </div>
 
   <script>
-    // Canvas arka planı
     const canvas = document.getElementById("bgCanvas");
     const ctx = canvas.getContext("2d");
     let width, height;
@@ -174,34 +173,38 @@
     }
     animate();
 
-    // PROFIL SECTIONS DATA
     const sections = [
       {
         title: "Projeler ve Teknik Çözümler",
         icon: "build",
         items: [
-          "Web Arayüz Geliştirme", "Tarımsal Veri Tahminleme ve Görselleştirme",
-          "CNC ve 3D Baskı Modelleme", "Adli Bilişim Uygulamaları", "Akademik Sunum",
-          "Yapay Sinir Ağları ve İstatistiksel Modelleme", "Giyilebilir Teknoloji Geliştiriciliği"
+          "🧩 Web Arayüz Geliştirme",
+          "🌾 Tarımsal Veri Tahminleme ve Görselleştirme",
+          "🛠️ CNC ve 3D Baskı Modelleme",
+          "🕵️‍♂️ Adli Bilişim Uygulamaları",
+          "📊 Akademik Sunum",
+          "🧠 Yapay Sinir Ağları ve İstatistiksel Modelleme",
+          "⌚ Giyilebilir Teknoloji Geliştiriciliği"
         ],
-        color: "from-blue-500 via-purple-500 to-pink-500"
+        color: "from-blue-500 via-purple-500 to-pink-500",
+        noIcon: true
       },
       {
         title: "Kullandığım Programlar",
         icon: "computer",
         items: [
-          "CorelDRAW", "SketchUp", "Adobe Photoshop", "Adobe Animate", "Adobe Premiere Pro", 
-          "Adobe After Effects", "Tableau", "SPSS", "VMware Workstation", "Python", "R", 
-          "Fusion 360", "SolidWorks", "Autodesk 3ds Max", "Autodesk Maya", "MATLAB", "Android Studio"
+          "Adobe Animate", "Adobe Photoshop", "Adobe After Effects", "Adobe Premiere Pro",
+          "CorelDRAW", "SketchUp", "VMware Workstation", "Autodesk Maya",
+         "Autodesk 3ds Max", "Fusion 360", "Python", "JavaScript (Canvas/DOM)", "R",
+          "SolidWorks", "Tableau", "SPSS", "MATLAB", "Android Studio"
         ],
         color: "from-green-400 via-teal-500 to-blue-500"
       }
     ];
 
-    // Animasyon gecikmesi HER MADDE için sırayla ilerler!
-    function sectionItemHTML(item, idx) {
+    function sectionItemHTML(item, idx, noIcon = false) {
       return `<li class="flex items-center gap-2 mb-2 fade-in delay-${idx + 1}">
-        <span class="material-icons-outlined text-lg text-blue-500">check_circle</span>
+        ${noIcon ? "" : `<span class="material-icons-outlined text-lg text-blue-500">check_circle</span>`}
         <span>${item}</span>
       </li>`;
     }
@@ -214,16 +217,13 @@
             <h2 class="text-xl font-semibold bg-gradient-to-r ${section.color} bg-clip-text text-transparent">${section.title}</h2>
           </div>
           <ul class="text-left max-w-md mx-auto">
-            ${section.items.map((item, i) => sectionItemHTML(item, i)).join('')}
+            ${section.items.map((item, i) => sectionItemHTML(item, i, section.noIcon)).join('')}
           </ul>
         </div>
       `;
     }
 
-    // Render sections
     document.getElementById("profile-sections").innerHTML = sections.map(sectionHTML).join('');
   </script>
 </body>
 </html>
-
-
